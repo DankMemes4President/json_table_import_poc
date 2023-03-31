@@ -92,6 +92,12 @@ def create_table_from_json(engine, datafile, metadata=None):
             )
             cursor.execute(insert_stmt)
 
+            # Step 6
+            drop_stmt = sql.SQL("DROP TABLE {temp_table}").format(
+                temp_table=full_temp_name
+            )
+            cursor.execute(drop_stmt)
+
 
 engine = create_engine("postgresql+psycopg2://poc:poc@localhost:5433/poc_db")
 create_table_from_json(engine, None)
